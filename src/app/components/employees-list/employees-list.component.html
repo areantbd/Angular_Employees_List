@@ -2,16 +2,19 @@
   <div class="card">
     <div class="card-body">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sex" id="todos" value="masc">
-        <label class="form-check-label" for="todos">Todos(5)</label>
+        <input class="form-check-input" [(ngModel)]="selectedRadioButton" 
+          type="radio" name="sex" id="todos" value="all">
+        <label class="form-check-label" for="todos">All({{ totalEmployees() }})</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sex" id="female" value="option2">
-        <label class="form-check-label" for="female">Female(2)</label>
+        <input class="form-check-input" [(ngModel)]="selectedRadioButton" 
+          type="radio" name="sex" id="female" value="Fem">
+        <label class="form-check-label" for="female">Female({{ femaleEmployees() }})</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="sex" id="male" value="option3">
-        <label class="form-check-label" for="male">Male(3)</label>
+        <input class="form-check-input" [(ngModel)]="selectedRadioButton" 
+          type="radio" name="sex" id="male" value="Masc">
+        <label class="form-check-label" for="male">Male({{ maleEmployees() }})</label>
       </div>
     </div>
   </div>
@@ -28,13 +31,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>Juan</td>
-            <td>Perez</td>
-            <td>Masc</td>
-            <td>25.000</td>
-          </tr>
+          <ng-container *ngFor="let employee of employeesList, let i = index">
+            <tr *ngIf="selectedRadioButton === 'all' || selectedRadioButton === employee.sex">
+              <th>{{ i + 1 }}</th>
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.lastName }}</td>
+              <td>{{ employee.sex }}</td>
+              <!-- <td>{{employee.salary | currency: 'EUR'}}</td> -->            
+              <td>{{ employee.salary.toFixed(3) }} €</td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
