@@ -16,6 +16,8 @@ export class EmployeesListComponent {
     {name: "Marta", lastName: "Varela", sex: "Fem", salary: 26.000}
   ]
 
+  selectedRadioButton = "all"
+
   totalEmployees(): number {
     return this.employeesList.length
   }
@@ -28,5 +30,8 @@ export class EmployeesListComponent {
     return this.employeesList.filter(list => list.sex === "Masc").length
   }
 
-  selectedRadioButton = "all"
+  filteredEmployees(selectedRadio: string): void {
+    this.selectedRadioButton = selectedRadio
+  }
+
 }
